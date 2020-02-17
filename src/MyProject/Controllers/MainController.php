@@ -11,6 +11,6 @@ class MainController
 	
 	public function sayHello(string $name)
 	{
-		echo "Hello, $name!";
+		echo "Привет, $name!";
 	}
 }
