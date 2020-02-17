@@ -7,7 +7,10 @@ function myAutoLoader(string $className)
 
 spl_autoload_register('myAutoLoader');
 
-$author = new MyProject\Models\Users\User('Tigran');
-$article = new MyProject\Models\Articles\Article('some title', 'some text', $author);
+$controller = new \MyProject\Controllers\MainController();
 
-var_dump($article);
+if (!empty($_GET['name'])) {
+	$controller->sayHello($_GET['name']);
+} else {
+	$controller->main();
+}
