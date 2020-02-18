@@ -16,12 +16,11 @@
 	
 	<tr>
 	  <td>
-	    <h2>Статья 1</h2>
-		<p>Текст первой статьи</p>
-		<hr>
-		<h2>Статья 2</h2>
-		<p>Текст второй статьи</p>
-		<hr>
+	    <?php foreach ($articles as $article): ?>
+	      <h2><?= $article['name'] ?></h2>
+		  <p><?= $article['text'] ?></p>
+		  <hr>
+		<?php endforeach; ?>  
 	  </td>
 	  
 	  <td width="300px" class="sidebar">
@@ -31,6 +30,8 @@
 		  <li><a href="/about-me">Обо мне</a></li>
 		</ul>
 	  </td>
+	</tr>
+	
     <tr>
       <td colspan="2" class="footer">Копирайт (с) Майн блог</td>
 	</tr>
