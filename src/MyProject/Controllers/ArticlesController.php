@@ -31,7 +31,12 @@ class ArticlesController
             return;
         }
 
+        $author = $this->db->query(
+            "SELECT `nickname` FROM `users` WHERE `id` = {$result[0]['author_id']}"
+        )[0];
+
+        $result[0]['nickname'] = $author['nickname'];
+
         $this->view->renderHtml('articles/view.php', ['article' => $result[0]]);
-        //$this->view->renderHtml();
     }
 }
