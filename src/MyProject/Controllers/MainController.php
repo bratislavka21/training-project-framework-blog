@@ -15,15 +15,17 @@ class MainController
 
     public function main()
 	{
+	    $title = 'Главная страница';
 		$articles = [
 			['name' => 'Статья 1', 'text' => 'Текст первой статьи'],
 			['name' => 'Статья 2', 'text' => 'Текст второй статьи'],
 		];
-		$this->view->renderHtml('main/main.php', ['articles' => $articles]);
+		$this->view->renderHtml('main/main.php', ['articles' => $articles, 'title' => $title]);
 	}
 	
 	public function sayHello(string $name)
 	{
-		echo "Привет, $name!";
+	    $title = 'Страница приветствия';
+		$this->view->renderHtml('hello/hello.php', ['name' => $name, 'title' => $title]);
 	}
 }

@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Блог</title>
+  <title><?= $title ?? 'Мой блог' ?></title>
   <link href="/styles.css" rel="stylesheet">
 </head>
 <body>
