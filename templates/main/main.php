@@ -4,4 +4,4 @@
   <p><?= $article['text'] ?></p>
   <hr>
 <?php endforeach; ?>  
-<?php include __DIR__ . '/../footer.php'; ?>
+<?php include __DIR__ . '/../footer.php';

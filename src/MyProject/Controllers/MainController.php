@@ -27,8 +27,7 @@ class MainController
 		];
 		*/
         $articles = $this->db->query("SELECT * FROM `articles`");
-        var_dump($articles);
-		//$this->view->renderHtml('main/main.php', ['articles' => $articles, 'title' => $title]);
+		$this->view->renderHtml('main/main.php', ['articles' => $articles, 'title' => $title]);
 	}
 	
 	public function sayHello(string $name)

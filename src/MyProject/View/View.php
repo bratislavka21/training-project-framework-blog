@@ -13,8 +13,10 @@ class View
         $this->templatesPath = $templatesPath;
     }
 
-    public function renderHtml(string $templateName, array $vars = [])
+    public function renderHtml(string $templateName, array $vars = [], int $httpCode = 200)
     {
+        http_response_code($httpCode);
+
         extract($vars);
         
 		ob_start();
