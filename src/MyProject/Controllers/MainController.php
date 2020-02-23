@@ -20,12 +20,7 @@ class MainController
     public function main()
 	{
 	    $title = 'Главная страница';
-		/*
-	    $articles = [
-			['name' => 'Статья 1', 'text' => 'Текст первой статьи'],
-			['name' => 'Статья 2', 'text' => 'Текст второй статьи'],
-		];
-		*/
+
         $articles = $this->db->query("SELECT * FROM `articles`");
 		$this->view->renderHtml('main/main.php', ['articles' => $articles, 'title' => $title]);
 	}
