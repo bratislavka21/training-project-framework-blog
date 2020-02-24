@@ -1,7 +1,8 @@
 <?php
+
 namespace MyProject\Models\Articles;
 
-use MyProject\Models\Users\User;
+use MyProject\Services\Db;
 
 class Article
 {
@@ -21,6 +22,13 @@ class Article
         $this->$camelCaseName = $value;
     }
 
+    public static function findAll(): array
+    {
+        $db = new Db();
+
+        return $db->query("SELECT * FROM " . static::getTableName(), [], static::class);
+    }
+
     public function getId(): string
     {
         return $this->id;
@@ -29,6 +37,11 @@ class Article
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public static function getTableName(): string
+    {
+        return '`articles`';
     }
 
     public function getText(): string
