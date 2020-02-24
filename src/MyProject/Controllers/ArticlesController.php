@@ -4,33 +4,28 @@
 namespace MyProject\Controllers;
 
 
-use MyProject\Services\Db;
+use MyProject\Models\Articles\Article;
 use MyProject\View\View;
 
 class ArticlesController
 {
-    private $db;
 
     private $view;
 
     public function __construct()
     {
-        $this->db = new Db();
         $this->view = new View(__DIR__ . '/../../../templates');
     }
 
     public function view(int $articleId)
     {
-        $result = $this->db->query(
-            "SELECT * FROM `articles` WHERE id = :id",
-            ['id' => $articleId]
-        );
+        $result = Article::getById($articleId);
 
         if ($result == []) {
             $this->view->renderHtml('errors/404.php', [], 404);
             return;
         }
 
-        $this->view->renderHtml('articles/view.php', ['article' => $result[0]]);
+        $this->view->renderHtml('articles/view.php', ['article' => $result]);
     }
 }

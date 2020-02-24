@@ -22,6 +22,19 @@ abstract class ActiveRecordEntity
         return $db->query("SELECT * FROM " . static::getTableName(), [], static::class);
     }
 
+    public static function getById(int $id): ?self
+    {
+        $db = new Db();
+
+        $result = $db->query(
+            "SELECT * FROM " . static::getTableName() . " WHERE `id` = :id",
+            ['id' => $id],
+            static::class
+        );
+
+        return $result ? $result[0] : null;
+    }
+
     public function getId(): string
     {
         return $this->id;
