@@ -3,6 +3,7 @@
 namespace MyProject\Models\Articles;
 
 use MyProject\Models\ActiveRecordEntity;
+use MyProject\Models\Users\User;
 
 class Article extends ActiveRecordEntity
 {
@@ -10,9 +11,19 @@ class Article extends ActiveRecordEntity
 
     private $text;
 
-    private $authorId;
+    protected $authorId;
 
-    private $createdAt;
+    protected $createdAt;
+    
+    public function getAuthor(): User
+    {
+        return User::getById($this->authorId);
+    }
+    
+    public function getAuthorId(): int
+    {
+        return (int) $this->authorId;
+    }
 
     public function getName(): string
     {

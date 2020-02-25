@@ -31,7 +31,7 @@ abstract class ActiveRecordEntity
             ['id' => $id],
             static::class
         );
-
+        
         return $result ? $result[0] : null;
     }
 
