@@ -17,14 +17,14 @@ abstract class ActiveRecordEntity
 
     public static function findAll(): array
     {
-        $db = new Db();
+        $db = Db::getInstance();
 
         return $db->query("SELECT * FROM " . static::getTableName(), [], static::class);
     }
 
     public static function getById(int $id): ?self
     {
-        $db = new Db();
+        $db = Db::getInstance();
 
         $result = $db->query(
             "SELECT * FROM " . static::getTableName() . " WHERE `id` = :id",
