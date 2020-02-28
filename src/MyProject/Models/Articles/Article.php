@@ -7,9 +7,9 @@ use MyProject\Models\Users\User;
 
 class Article extends ActiveRecordEntity
 {
-    private $name;
+    protected $name;
 
-    private $text;
+    protected $text;
 
     protected $authorId;
 
@@ -38,5 +38,15 @@ class Article extends ActiveRecordEntity
     public function getText(): string
     {
         return $this->text;
+    }
+
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    public function setText(string $text)
+    {
+        $this->text = $text;
     }
 }
