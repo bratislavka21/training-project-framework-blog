@@ -40,6 +40,11 @@ class Article extends ActiveRecordEntity
         return $this->text;
     }
 
+    public function setAuthorId(User $author): void
+    {
+        $this->authorId = (int) $author->getId();
+    }
+
     public function setName(string $name)
     {
         $this->name = $name;
