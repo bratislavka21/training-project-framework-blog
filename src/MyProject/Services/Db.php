@@ -30,6 +30,11 @@ class Db
         return self::$instance;
     }
 
+    public function getLastInsertId(): int
+    {
+        return $this->pdo->lastInsertId();
+    }
+
     public function query(string $sql, array $queryPlaceholders = [], string $className = 'stdClass'): ?array
     {
         $sth = $this->pdo->prepare($sql);
