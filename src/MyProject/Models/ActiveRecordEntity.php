@@ -47,7 +47,7 @@ abstract class ActiveRecordEntity
         if ($this->id !== null) {
             $this->update($mappedProperties);
         } else {
-            $this->insert();
+            $this->insert($mappedProperties);
         }
     }
 
@@ -58,9 +58,29 @@ abstract class ActiveRecordEntity
         return strtolower(preg_replace('~(?<!^)[A-Z]~', '_$0', $camelCaseName));
     }
 
-    private function insert()
+    private function insert(array $mappedProperties): void
     {
-        // здесь будет код для вставки в бд
+        $filteredProperties = array_filter($mappedProperties);
+
+        $placeholdersForQuery = [];
+        $paramsForSql = [];
+        $fieldsForSql = [];
+
+        foreach ($filteredProperties as $field => $value) {
+            $fieldsForSql[] = "`$field`";
+            $param = ':' . $field;
+            $paramsForSql[] = $param;
+            $placeholdersForQuery[$param] = $value;
+        }
+
+        $sql = "INSERT INTO " . static::getTableName() . " (" . implode(', ',$fieldsForSql) . ") VALUES (" .
+            implode(', ', $paramsForSql) . ")";
+
+        $db = Db::getInstance();
+        $db->query($sql, $placeholdersForQuery);
+
+        $this->id = $db->getLastInsertId();
+        $this->refresh();
     }
 
     private function mapPropertiesToDbFormat(): array
@@ -75,6 +95,19 @@ abstract class ActiveRecordEntity
             $mappedProperties[$propertyDbName] = $this->$propertyCamelCaseName;
         }
         return $mappedProperties;
+    }
+
+    private function refresh(): void
+    {
+        $objFromDb = static::getById($this->id);
+        $reflector = new \ReflectionObject($objFromDb);
+        $properties = $reflector->getProperties();
+
+        foreach ($properties as $property) {
+            $property->setAccessible(true);
+            $propertyName = $property->getName();
+            $this->$propertyName = $property->getValue($objFromDb);
+        }
     }
 
     private function underscoreToCamelCase(string $origin): string
