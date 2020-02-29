@@ -27,12 +27,26 @@ class ArticlesController
         $article->save();
     }
 
+    public function delete(int $id)
+    {
+        $article = Article::getById($id);
+
+        if ($article === null) {
+            $this->view->renderHtml('errors/404.php', [], 404);
+            return;
+        }
+
+        $article->delete();
+        var_dump($article);
+    }
+
     public function edit(int $articleId)
     {
         $article = Article::getById($articleId);
 
         if ($article === null) {
             $this->view->renderHtml('errors/404.php', [], 404);
+            return;
         }
 
         $article->setName('Новое название статьи');

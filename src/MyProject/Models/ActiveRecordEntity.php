@@ -15,6 +15,16 @@ abstract class ActiveRecordEntity
         $this->$camelCaseName = $value;
     }
 
+    public function delete(): void
+    {
+        $sql = "DELETE FROM " . static::getTableName() . " WHERE `id` = :id";
+
+        $placeholdersForQuery['id'] = $this->id;
+        $db = Db::getInstance();
+        $db->query($sql, $placeholdersForQuery);
+        $this->id = null;
+    }
+
     public static function findAll(): array
     {
         $db = Db::getInstance();
