@@ -3,6 +3,7 @@
 namespace MyProject\Controllers;
 
 use MyProject\Models\Articles\Article;
+use MyProject\Models\Users\User;
 use MyProject\View\View;
 
 class ArticlesController
@@ -13,6 +14,17 @@ class ArticlesController
     public function __construct()
     {
         $this->view = new View(__DIR__ . '/../../../templates');
+    }
+
+    public function add()
+    {
+        $article = new Article();
+        $article->setName('New article');
+        $article->setText('New article\'s text');
+        $author = User::getById(1);
+        $article->setAuthorId($author);
+
+        $article->save();
     }
 
     public function edit(int $articleId)
