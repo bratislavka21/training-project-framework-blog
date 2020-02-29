@@ -22,7 +22,7 @@ class User extends ActiveRecordEntity
 
     public function getName(): string
     {
-        return $this->name;
+        return $this->nickname;
     }
     
     public function getNickname(): string
