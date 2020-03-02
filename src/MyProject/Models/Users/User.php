@@ -16,7 +16,7 @@ class User extends ActiveRecordEntity
     
     protected $nickname;
     
-    protected $password_hash;
+    protected $passwordHash;
     
     protected $role;
 
