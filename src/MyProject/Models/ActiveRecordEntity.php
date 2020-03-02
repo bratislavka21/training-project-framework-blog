@@ -32,6 +32,22 @@ abstract class ActiveRecordEntity
         return $db->query("SELECT * FROM " . static::getTableName(), [], static::class);
     }
 
+    public static function findOneByColumn(string $columnName, $value): ?self
+    {
+        $db = Db::getInstance();
+        $result = $db->query(
+            "SELECT * FROM " . static::getTableName() . " WHERE `$columnName` = :param LIMIT 1",
+            [':param' => $value],
+            static::class
+        );
+
+        if ($result === []) {
+            return null;
+        }
+
+        return $result[0];
+    }
+
     public static function getById(int $id): ?self
     {
         $db = Db::getInstance();
