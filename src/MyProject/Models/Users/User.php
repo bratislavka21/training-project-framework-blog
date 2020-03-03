@@ -71,7 +71,7 @@ class User extends ActiveRecordEntity
         $user->passwordHash = password_hash($userData['password'], PASSWORD_DEFAULT);
         $user->role = 'user';
         $user->authToken = sha1(random_bytes(100)) . sha1(random_bytes(100));
-        var_dump($user);
+
         $user->save();
 
         return $user;

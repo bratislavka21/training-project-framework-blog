@@ -17,19 +17,18 @@ class UsersController
 
     public function signUp()
     {
-        try {
-            if (!empty($_POST)) {
+        if (!empty($_POST)) {
+            try {
                 $user = User::signUp($_POST);
-                var_dump($user);
+            } catch (InvalidArgumentException $e) {
+                $this->view->renderHtml('users/signUp.php', ['error' => $e->getMessage()]);
+                return;
             }
-        } catch (InvalidArgumentException $e) {
-            $this->view->renderHtml('users/signUp.php', ['error' => $e->getMessage()]);
-            return;
-        }
 
-        if ($user instanceof User) {
-            $this->view->renderHtml('users/signUpSuccessful.php');
-            return;
+            if ($user instanceof User) {
+                $this->view->renderHtml('users/signUpSuccessful.php');
+                return;
+            }
         }
 
         $this->view->renderHtml('users/signUp.php');
