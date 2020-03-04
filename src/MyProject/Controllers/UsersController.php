@@ -21,9 +21,16 @@ class UsersController
     {
         $user = User::getById($userId);
         $isCodeValid = UserActivationService::checkActivationCode($user, $activationCode);
+
         if ($isCodeValid) {
             $user->activate();
-            echo 'OK!';
+            UserActivationService::deleteActivationCode($user);
+
+            $message = 'OK!';
+            $this->view->renderHtml('users/activation.php', ['message' => $message]);
+        } else {
+            $message = 'Ошибка активации пользователя';
+            $this->view->renderHtml('users/activation.php', ['message' => $message]);
         }
     }
 
