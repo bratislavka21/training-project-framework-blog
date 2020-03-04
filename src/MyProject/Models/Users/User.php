@@ -21,6 +21,17 @@ class User extends ActiveRecordEntity
     
     protected $role;
 
+    public function activate(): void
+    {
+        $this->isConfirmed = true;
+        $this->save();
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
     public function getName(): string
     {
         return $this->nickname;
