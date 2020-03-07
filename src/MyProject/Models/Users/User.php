@@ -27,6 +27,11 @@ class User extends ActiveRecordEntity
         $this->save();
     }
 
+    public function getAuthToken(): string
+    {
+        return $this->authToken;
+    }
+    
     public function getEmail(): string
     {
         return $this->email;
