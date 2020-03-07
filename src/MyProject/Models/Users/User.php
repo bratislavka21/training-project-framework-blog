@@ -42,6 +42,41 @@ class User extends ActiveRecordEntity
         return $this->nickname;
     }
 
+    public static function login(array $loginData): self
+    {
+        if (empty($loginData['email'])) {
+            throw new InvalidArgumentException('Не передан email');
+        }
+
+        if (empty($loginData['password'])) {
+            throw new InvalidArgumentException('Не передан пароль');
+        }
+
+        $user = self::findOneByColumn('email', $loginData['email']);
+
+        if ($user === null) {
+            throw new InvalidArgumentException('В базе не найден пользователь с таким email-ом');
+        }
+
+        if (!password_verify($loginData['password'], $user->passwordHash)) {
+            throw new InvalidArgumentException('Неверный пароль');
+        }
+
+        if (!$user->isConfirmed) {
+            throw new InvalidArgumentException('Пользователь еще не активирован');
+        }
+
+        $user->refreshAuthToken();
+        $user->save();
+
+        return $user;
+    }
+
+    private function refreshAuthToken(): void
+    {
+        $this->authToken = sha1(random_bytes(100)) . sha1(random_bytes(100));
+    }
+
     public static function signUp(array $userData): User
     {
         if (empty($userData['nickname'])) {
