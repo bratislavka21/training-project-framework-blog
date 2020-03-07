@@ -13,6 +13,16 @@
 	    Майн блог
 	  </td>
 	</tr>
-	
+
+  <tr>
+    <td colspan="2" style="text-align: right">
+      <?php if (!empty($user)): ?>
+        <?= 'Добро пожаловать, ' . $user->getName() . '!'; ?>
+      <?php else: ?>
+        <?= 'Авторизуйтесь'; ?>
+      <?php endif; ?>
+    </td>
+  </tr>
+
 	<tr>
 	  <td>
