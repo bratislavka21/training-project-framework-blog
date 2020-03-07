@@ -5,21 +5,11 @@ namespace MyProject\Controllers;
 use MyProject\Exceptions\InvalidArgumentException;
 use MyProject\Models\Users\User;
 use MyProject\Models\Users\UserActivationService;
-use MyProject\View\View;
 use MyProject\Services\EmailSender;
 use MyProject\Services\UsersAuthService;
 
-class UsersController
+class UsersController extends AbstractController
 {
-    private $view;
-
-    public function __construct()
-    {
-        $user = UsersAuthService::getUserByToken();
-        $this->view = new View(__DIR__ . '/../../../templates');
-        $this->view->setExtraVars('user', $user);
-    }
-
     public function activate(int $userId, string $activationCode)
     {
         $user = User::getById($userId);
