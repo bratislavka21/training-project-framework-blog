@@ -7,6 +7,7 @@ use MyProject\Models\Users\User;
 use MyProject\Models\Users\UserActivationService;
 use MyProject\View\View;
 use MyProject\Services\EmailSender;
+use MyProject\Services\UsersAuthService;
 
 class UsersController
 {
@@ -32,6 +33,22 @@ class UsersController
             $message = 'Ошибка активации пользователя';
             $this->view->renderHtml('users/activation.php', ['message' => $message]);
         }
+    }
+
+    public function login()
+    {
+        if (!empty($_POST)) {
+            try {
+                $user = User::login($_POST);
+                UsersAuthService::setAuthToken($user);
+                header("Location: /");
+                exit();
+            } catch (InvalidArgumentException $e) {
+                $this->view->renderHtml('users/login.php', ['error' => $e->getMessage()]);
+                return;
+            }
+        }
+        $this->view->renderHtml('users/login.php');
     }
 
     public function signUp()
