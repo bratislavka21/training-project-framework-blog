@@ -15,7 +15,9 @@ class UsersController
 
     public function __construct()
     {
+        $user = UsersAuthService::getUserByToken();
         $this->view = new View(__DIR__ . '/../../../templates');
+        $this->view->setExtraVars('user', $user);
     }
 
     public function activate(int $userId, string $activationCode)
