@@ -21,8 +21,7 @@ class UsersAuthService
         }
 
         [$userId, $authToken] = explode(':', $token, 2);
-        var_dump($userId);
-        var_dump($authToken);
+
         $user = User::getById($userId);
 
         if ($user === null) {
