@@ -7,12 +7,14 @@ use MyProject\Services\UsersAuthService;
 
 abstract class AbstractController
 {
+    protected $user;
+
     protected $view;
 
     public function __construct()
     {
-        $user = UsersAuthService::getUserByToken();
+        $this->user = UsersAuthService::getUserByToken();
         $this->view = new View(__DIR__ . '/../../../templates');
-        $this->view->setExtraVars('user', $user);
+        $this->view->setExtraVars('user', $this->user);
     }
 }
