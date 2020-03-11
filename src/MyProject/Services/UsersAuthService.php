@@ -6,6 +6,11 @@ use MyProject\Models\Users\User;
 
 class UsersAuthService
 {
+    public static function deleteAuthToken(): void
+    {
+        setcookie('token', 0, 1, "/", ".myproject.loc", false, true);
+    }
+
     public static function setAuthToken(User $user): void
     {
         $token = $user->getId() . ':' . $user->getAuthToken();
