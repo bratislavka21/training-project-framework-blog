@@ -17,9 +17,12 @@
   <tr>
     <td colspan="2" style="text-align: right">
       <?php if (!empty($user)): ?>
-        <?= 'Добро пожаловать, ' . $user->getName() . '!'; ?>
+        <?= 'Добро пожаловать, ' . $user->getName() . '!' . ' | '; ?>
+        <a href="/users/logout/">Выйти</a>
       <?php else: ?>
-        <?= 'Авторизуйтесь'; ?>
+        <a href="/users/login/">Авторизуйтесь</a>
+        <?= ' | ' ?>
+        <a href="/users/register/">Зарегистрируйтесь</a>
       <?php endif; ?>
     </td>
   </tr>
