@@ -47,6 +47,15 @@ class User extends ActiveRecordEntity
         return $this->nickname;
     }
 
+    public function isAdmin(): bool
+    {
+        if ($this->role !== 'admin') {
+            return false;
+        }
+
+        return true;
+    }
+
     public static function login(array $loginData): self
     {
         if (empty($loginData['email'])) {
