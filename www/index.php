@@ -40,4 +40,11 @@ try {
 } catch (\MyProject\Exceptions\UnauthorizedException $e) {
     $view = new \MyProject\View\View(__DIR__ . '/../templates');
     $view->renderHtml('errors/401.php');
+} catch (\MyProject\Exceptions\ForbiddenException $e) {
+    $view = new \MyProject\View\View(__DIR__ . '/../templates');
+    $view->renderHtml(
+        'errors/403.php',
+        ['error' => $e->getMessage(), 'user' => \MyProject\Services\UsersAuthService::getUserByToken()],
+        403
+    );
 }
