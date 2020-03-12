@@ -37,4 +37,7 @@ try {
 } catch (\MyProject\Exceptions\NotFoundException $e) {
     $view = new \MyProject\View\View(__DIR__ . '/../templates');
     $view->renderHtml('errors/404.php', [], 404);
+} catch (\MyProject\Exceptions\UnauthorizedException $e) {
+    $view = new \MyProject\View\View(__DIR__ . '/../templates');
+    $view->renderHtml('errors/401.php');
 }
