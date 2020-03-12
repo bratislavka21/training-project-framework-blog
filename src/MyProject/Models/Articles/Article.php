@@ -2,6 +2,7 @@
 
 namespace MyProject\Models\Articles;
 
+use MyProject\Exceptions\InvalidArgumentException;
 use MyProject\Models\ActiveRecordEntity;
 use MyProject\Models\Users\User;
 
@@ -14,6 +15,26 @@ class Article extends ActiveRecordEntity
     protected $authorId;
 
     protected $createdAt;
+
+    public static function createArticle(array $fields, User $author): self
+    {
+        if (empty($fields['name'])) {
+            throw new InvalidArgumentException('Не передано название статьи');
+        }
+        if (empty($fields['text'])) {
+            throw new InvalidArgumentException('Не передан текст статьи');
+        }
+
+        $article = new self();
+
+        $article->setName($fields['name']);
+        $article->setText($fields['text']);
+        $article->setAuthorId($author);
+
+        $article->save();
+
+        return $article;
+    }
     
     public function getAuthor(): User
     {
