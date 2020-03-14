@@ -51,16 +51,29 @@ class ArticlesController extends AbstractController
 
     public function edit(int $articleId)
     {
+        if ($this->user === null) {
+            throw new UnauthorizedException();
+        }
+
         $article = Article::getById($articleId);
 
         if ($article === null) {
-            throw new NotFoundException();
+            throw new NotFoundException('Статья с таким id не существует');
         }
 
-        $article->setName('Новое название статьи');
-        $article->setText('Новый текст статьи');
+        if (!empty($_POST)) {
+            try {
+                $article->updateArticle($_POST);
+            } catch (InvalidArgumentException $e) {
+                $this->view->renderHtml('articles/edit.php', ['article' => $article, 'error' => $e->getMessage()]);
+                return;
+            }
 
-        $article->save();
+            header('Location: /articles/' . $article->getId(), true, 302);
+            exit();
+        }
+
+        $this->view->renderHtml('articles/edit.php', ['article' => $article]);
     }
 
     public function view(int $articleId)
