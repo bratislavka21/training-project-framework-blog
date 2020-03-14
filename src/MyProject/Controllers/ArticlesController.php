@@ -55,6 +55,10 @@ class ArticlesController extends AbstractController
             throw new UnauthorizedException();
         }
 
+        if (!$this->user->isAdmin()) {
+            throw new ForbiddenException('Редактировать статьи могут только пользователи с правами администратора');
+        }
+
         $article = Article::getById($articleId);
 
         if ($article === null) {
