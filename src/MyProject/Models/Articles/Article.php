@@ -50,7 +50,13 @@ class Article extends ActiveRecordEntity
     {
         return $this->name;
     }
-
+    
+    public function getParsedText(): string
+    {
+        $parser = new \Parsedown();
+        return $parser->text($this->getText());
+    }
+    
     protected static function getTableName(): string
     {
         return '`articles`';
