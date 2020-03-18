@@ -4,13 +4,6 @@ try {
     
     require __DIR__ . '/../vendor/autoload.php';
     
-    function myAutoLoader(string $className)
-    {
-        require_once __DIR__ . '/../src/' . $className . '.php';
-    }
-
-    spl_autoload_register('myAutoLoader');
-
     $route = $_GET['route'] ?? '';
     $routes = require __DIR__ . '/../src/routes.php';
 
