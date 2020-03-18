@@ -1,0 +1,12 @@
+{
+    "name": "bratislavka21/myproject.loc",
+    "type": "project",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Ivan Sokolin",
+            "email": "bratislavka21@mail.ru"
+        }
+    ],
+    "require": {}
+}
