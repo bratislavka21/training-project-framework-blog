@@ -8,5 +8,7 @@
             "email": "bratislavka21@mail.ru"
         }
     ],
-    "require": {}
+    "require": {
+        "erusev/parsedown": "^1.7"
+    }
 }
