@@ -1,6 +1,9 @@
 <?php
 
 try {
+    
+    require __DIR__ . '/../vendor/autoload.php';
+    
     function myAutoLoader(string $className)
     {
         require_once __DIR__ . '/../src/' . $className . '.php';
@@ -31,6 +34,7 @@ try {
 
     $controller = new $controllerName();
     $controller->$actionName(...$matches);
+    
 } catch (\MyProject\Exceptions\DbException $e) {
     $view = new \MyProject\View\View(__DIR__ . '/../templates');
     $view->renderHtml('errors/500.php', ['error' => $e->getMessage()], 500);
